@@ -1,0 +1,26 @@
+{
+    "lista1": [
+        {
+            "id_lista1": 1,
+            "atributo": "lista 1 - teste"
+        },
+        {
+            "id_lista1": 3,
+            "atributo": "lista 1 -teste"
+        }
+    ],
+    "lista2": [
+        {
+            "id_lista2": 1,
+            "atributo": "lista 2 - teste 1"
+        },
+        {
+            "id_lista2": 2,
+            "atributo": "lista 2 - teste 21"
+        },
+        {
+            "id_lista2": 3,
+            "atributo": "lista 3 - teste 3"
+        }
+    ]
+}

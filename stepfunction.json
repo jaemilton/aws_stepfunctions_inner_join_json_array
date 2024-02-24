@@ -1,0 +1,64 @@
+{
+    "Comment": "A description of my state machine",
+    "StartAt": "Pass",
+    "States": {
+      "Pass": {
+        "Type": "Pass",
+        "Parameters": {
+          "ids_lista1.$": "$.lista1[*].id_lista1"
+        },
+        "Next": "MapLista1"
+      },
+      "MapLista1": {
+        "Type": "Map",
+        "ItemProcessor": {
+          "ProcessorConfig": {
+            "Mode": "INLINE"
+          },
+          "StartAt": "MapLista2",
+          "States": {
+            "MapLista2": {
+              "Type": "Map",
+              "ItemProcessor": {
+                "ProcessorConfig": {
+                  "Mode": "INLINE"
+                },
+                "StartAt": "Pass (1)",
+                "States": {
+                  "Pass (1)": {
+                    "Type": "Pass",
+                    "End": true,
+                    "Parameters": {
+                      "lista2.$": "$.Lista2ContextValue[?(@.id_lista2==$.Lista1ContextValue)]"
+                    }
+                  }
+                }
+              },
+              "ItemsPath": "$$.Execution.Input.lista2",
+              "ItemSelector": {
+                "Lista2ContextValue.$": "$$.Map.Item.Value",
+                "Lista1ContextValue.$": "$.Lista1ContextValue"
+              },
+              "End": true,
+              "ResultSelector": {
+                "lista2.$": "$[*].lista2[?(@.id_lista2>0)]"
+              }
+            }
+          }
+        },
+        "ItemSelector": {
+          "Lista1ContextValue.$": "$$.Map.Item.Value"
+        },
+        "ItemsPath": "$.ids_lista1",
+        "Next": "Pass (2)"
+      },
+      "Pass (2)": {
+        "Type": "Pass",
+        "End": true,
+        "Parameters": {
+          "lista2.$": "$[*].lista2[*]"
+        }
+      }
+    }
+  }
+  
